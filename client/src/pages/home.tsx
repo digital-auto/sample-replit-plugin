@@ -1,7 +1,20 @@
 import { useEffect, useRef } from "react";
 
 const pluginData = {
+  model: {
+    name: "Vehicle Light Control"
+  },
   prototype: {
+    name: "TestApp Prototype",
+    customerJourney: [
+      "User enters the vehicle",
+      "System initializes the light control module",
+      "Low beam lights are turned on automatically",
+      "System confirms light status after 1 second",
+      "Low beam lights are turned off after 2 seconds",
+      "System confirms light status again",
+      "Cycle repeats continuously"
+    ],
     code: `import time
 import asyncio
 import signal
