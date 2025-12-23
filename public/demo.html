@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plugin Demo</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Make React available for require()
+    window.require = function(name) {
+      if (name === 'react') return window.React;
+      if (name === 'react-dom/client') return window.ReactDOM;
+      if (name === 'react/jsx-runtime') {
+        // Provide JSX runtime API
+        return {
+          jsx: window.React.createElement,
+          jsxs: window.React.createElement,
+          Fragment: window.React.Fragment
+        };
+      }
+      throw new Error('Module not found: ' + name);
+    };
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="plugin-container"></div>
+
+  <script src="/plugin/index.js"></script>
+  
+  <script>
+    // Load the plugin
+    const plugin = window.DAPlugins['page-plugin'];
+    const container = document.getElementById('plugin-container');
+    
+    const pluginData = {
+      prototype: {
+        code: `import time
+import asyncio
+import signal
+
+from sdv.vdb.reply import DataPointReply
+from sdv.vehicle_app import VehicleApp
+from vehicle import Vehicle, vehicle
+
+class TestApp(VehicleApp):
+
+    def __init__(self, vehicle_client: Vehicle):
+        super().__init__()
+        self.Vehicle = vehicle_client
+
+    async def on_start(self):
+        # on app started, this function will be trigger, your logic SHOULD start from HERE
+        while True:
+            # sleep for 2 second
+            await asyncio.sleep(2)
+            # write an actuator signal with value
+            await self.Vehicle.Body.Lights.Beam.Low.IsOn.set(True)
+            await asyncio.sleep(1)
+            # read an actuator back
+            value = (await self.Vehicle.Body.Lights.Beam.Low.IsOn.get()).value
+            print("Light value ", value)
+            
+            await asyncio.sleep(2)
+            # write an actuator signal with value
+            await self.Vehicle.Body.Lights.Beam.Low.IsOn.set(False)
+            await asyncio.sleep(1)
+            # read an actuator back
+            value = (await self.Vehicle.Body.Lights.Beam.Low.IsOn.get()).value
+            print("Light value ", value)
+
+async def main():
+    vehicle_app = TestApp(vehicle)
+    await vehicle_app.run()
+
+
+LOOP = asyncio.get_event_loop()
+LOOP.add_signal_handler(signal.SIGTERM, LOOP.stop)
+LOOP.run_until_complete(main())
+LOOP.close()`
+      }
+    };
+    
+    plugin.mount(container, {
+      data: pluginData,
+      config: {
+        backendUrl: window.location.origin
+      }
+    });
+
+    console.log('Plugin loaded successfully!');
+  </script>
+</body>
+</html>
