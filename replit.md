@@ -25,15 +25,16 @@ A template project for building digital.auto plugins. This project demonstrates 
 │   ├── index.js              # Built bundle (IIFE format)
 │   └── README.md             # Plugin documentation
 │
-├── server/                    # Express server
-└── shared/                    # Shared types
+├── package.json              # Root package configuration
+├── vite.config.ts            # Vite configuration
+└── tsconfig.json             # TypeScript configuration
 ```
 
 ## What This Demo Demonstrates
 
 1. **Reading Prototype & Model Data**: Shows how plugins can read data from the current prototype and model:
-   - Prototype ID, Name, State, and Language
-   - Model ID and Name
+   - Prototype Name, State, and Language
+   - Model Name
    - Customer Journey content
    - Prototype Code
 
