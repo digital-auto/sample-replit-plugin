@@ -263,8 +263,8 @@ export default function Page({ data, config, api }: PageProps) {
 
         <div style={styles.card}>
           <h2 style={styles.cardTitle}>Writing Data Back</h2>
-          <p style={{ ...styles.value, marginBottom: '16px', color: 'var(--muted-foreground, #6b7280)' }}>
-            This section demonstrates how plugins can update data back to the platform using the Plugin API.
+          <p style={{ ...styles.value, marginBottom: '8px', color: 'var(--muted-foreground, #6b7280)' }}>
+            This is an example of updating prototype data. Plugins can use <code style={{ backgroundColor: 'var(--muted, #f3f4f6)', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>updatePrototype()</code> and <code style={{ backgroundColor: 'var(--muted, #f3f4f6)', padding: '2px 6px', borderRadius: '4px', fontSize: '13px' }}>updateModel()</code> to set any field on the prototype or model.
           </p>
           <div style={styles.apiSection}>
             <div style={{ flex: 1, minWidth: '200px' }}>

@@ -254,7 +254,13 @@
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: styles.card, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", { style: styles.cardTitle, children: "Writing Data Back" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { ...styles.value, marginBottom: "16px", color: "var(--muted-foreground, #6b7280)" }, children: "This section demonstrates how plugins can update data back to the platform using the Plugin API." }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { style: { ...styles.value, marginBottom: "8px", color: "var(--muted-foreground, #6b7280)" }, children: [
+          "This is an example of updating prototype data. Plugins can use ",
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", { style: { backgroundColor: "var(--muted, #f3f4f6)", padding: "2px 6px", borderRadius: "4px", fontSize: "13px" }, children: "updatePrototype()" }),
+          " and ",
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", { style: { backgroundColor: "var(--muted, #f3f4f6)", padding: "2px 6px", borderRadius: "4px", fontSize: "13px" }, children: "updateModel()" }),
+          " to set any field on the prototype or model."
+        ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: styles.apiSection, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, minWidth: "200px" }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: styles.label, children: "New Prototype Name" }),
