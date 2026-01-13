@@ -1,4 +1,4 @@
-# digital.auto Plugin Template
+# digital.auto Plugin Demo
 
 ## Overview
 A template project for building digital.auto plugins. This project demonstrates how to create a React-based plugin that can display prototype data and interact with the Plugin API.
@@ -9,7 +9,7 @@ A template project for building digital.auto plugins. This project demonstrates 
 ├── client/                    # Demo frontend application
 │   ├── src/
 │   │   ├── pages/
-│   │   │   ├── home.tsx      # Demo page showing the plugin UI
+│   │   │   ├── home.tsx      # Demo page that loads and mounts the plugin
 │   │   │   └── not-found.tsx # 404 page
 │   │   ├── App.tsx           # App router
 │   │   ├── index.css         # Simple CSS (no Tailwind)
@@ -29,19 +29,17 @@ A template project for building digital.auto plugins. This project demonstrates 
 └── shared/                    # Shared types
 ```
 
-## What This Template Demonstrates
+## What This Demo Demonstrates
 
-1. **Reading Prototype Data**: Displays prototype information including:
-   - Prototype ID and Name
-   - State and Language
+1. **Reading Prototype & Model Data**: Shows how plugins can read data from the current prototype and model:
+   - Prototype ID, Name, State, and Language
+   - Model ID and Name
    - Customer Journey content
    - Prototype Code
 
-2. **Model Information**: Shows model details linked to the prototype
+2. **Writing Data Back**: Demonstrates how plugins can update data back to the platform using the Plugin API (e.g., `updatePrototype`)
 
-3. **API Integration**: Demonstrates the `updatePrototype` API to save data back
-
-4. **Available APIs**: Shows which Plugin API methods are available
+3. **Available APIs**: Shows which Plugin API methods are available in the current context
 
 ## Building the Plugin
 

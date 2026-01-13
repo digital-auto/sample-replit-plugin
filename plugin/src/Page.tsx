@@ -167,7 +167,7 @@ const styles = {
 export default function Page({ data, config, api }: PageProps) {
   const [prototypeName, setPrototypeName] = React.useState('');
   const [isSaving, setIsSaving] = React.useState(false);
-  const [message, setMessage] = React.useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [message, setMessage] = React.useState(null as { type: 'success' | 'error'; text: string } | null);
 
   const prototype = data?.prototype;
   const model = data?.model;
@@ -211,12 +211,16 @@ export default function Page({ data, config, api }: PageProps) {
     <div style={styles.container} data-testid="plugin-page">
       <div style={styles.wrapper}>
         <header style={styles.header}>
-          <h1 style={styles.title} data-testid="text-page-title">Plugin Template</h1>
-          <p style={styles.subtitle}>A starting point for building digital.auto plugins</p>
+          <h1 style={styles.title} data-testid="text-page-title">digital.auto Plugin Demo</h1>
+          <p style={styles.subtitle}>Demonstrating how plugins can interact with the digital.auto platform</p>
         </header>
 
         <div style={styles.card}>
-          <h2 style={styles.cardTitle}>Prototype Information</h2>
+          <h2 style={styles.cardTitle}>Reading Prototype & Model Data</h2>
+          <p style={{ ...styles.value, marginBottom: '16px', color: '#6b7280' }}>
+            This section demonstrates how plugins can read data from the current prototype and model.
+          </p>
+          <h3 style={{ ...styles.cardTitle, fontSize: '14px', marginTop: '16px', paddingBottom: '8px', borderBottom: 'none', marginBottom: '8px' }}>Prototype Information</h3>
           <div style={styles.grid}>
             <div style={styles.fieldGroup}>
               <span style={styles.label}>Prototype ID</span>
@@ -235,10 +239,7 @@ export default function Page({ data, config, api }: PageProps) {
               <p style={styles.value} data-testid="text-prototype-language">{prototype?.language || 'N/A'}</p>
             </div>
           </div>
-        </div>
-
-        <div style={styles.card}>
-          <h2 style={styles.cardTitle}>Model Information</h2>
+          <h3 style={{ ...styles.cardTitle, fontSize: '14px', marginTop: '20px', paddingBottom: '8px', borderBottom: 'none', marginBottom: '8px' }}>Model Information</h3>
           <div style={styles.grid}>
             <div style={styles.fieldGroup}>
               <span style={styles.label}>Model ID</span>
@@ -266,9 +267,9 @@ export default function Page({ data, config, api }: PageProps) {
         </div>
 
         <div style={styles.card}>
-          <h2 style={styles.cardTitle}>Update Prototype (API Demo)</h2>
+          <h2 style={styles.cardTitle}>Writing Data Back</h2>
           <p style={{ ...styles.value, marginBottom: '16px', color: '#6b7280' }}>
-            Demonstrate the ability to save data back using the Plugin API.
+            This section demonstrates how plugins can update data back to the platform using the Plugin API.
           </p>
           <div style={styles.apiSection}>
             <div style={{ flex: 1, minWidth: '200px' }}>
