@@ -97,8 +97,8 @@
       margin: 0
     },
     codeBlock: {
-      backgroundColor: "var(--primary, #1e1e2e)",
-      color: "var(--primary-foreground, #cdd6f4)",
+      backgroundColor: "var(--muted, #f9fafb)",
+      color: "var(--foreground, #374151)",
       padding: "16px",
       borderRadius: "var(--radius, 6px)",
       fontSize: "13px",
