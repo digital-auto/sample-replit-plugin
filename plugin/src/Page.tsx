@@ -223,10 +223,6 @@ export default function Page({ data, config, api }: PageProps) {
           <h3 style={{ ...styles.cardTitle, fontSize: '14px', marginTop: '16px', paddingBottom: '8px', borderBottom: 'none', marginBottom: '8px' }}>Prototype Information</h3>
           <div style={styles.grid}>
             <div style={styles.fieldGroup}>
-              <span style={styles.label}>Prototype ID</span>
-              <p style={styles.value} data-testid="text-prototype-id">{prototype?.id || 'N/A'}</p>
-            </div>
-            <div style={styles.fieldGroup}>
               <span style={styles.label}>Prototype Name</span>
               <p style={styles.value} data-testid="text-prototype-name">{prototype?.name || 'N/A'}</p>
             </div>
@@ -241,10 +237,6 @@ export default function Page({ data, config, api }: PageProps) {
           </div>
           <h3 style={{ ...styles.cardTitle, fontSize: '14px', marginTop: '20px', paddingBottom: '8px', borderBottom: 'none', marginBottom: '8px' }}>Model Information</h3>
           <div style={styles.grid}>
-            <div style={styles.fieldGroup}>
-              <span style={styles.label}>Model ID</span>
-              <p style={styles.value} data-testid="text-model-id">{model?.id || prototype?.model_id?.id || 'N/A'}</p>
-            </div>
             <div style={styles.fieldGroup}>
               <span style={styles.label}>Model Name</span>
               <p style={styles.value} data-testid="text-model-name">{model?.name || prototype?.model_id?.name || 'N/A'}</p>
