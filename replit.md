@@ -6,28 +6,26 @@ A template project for building digital.auto plugins. This project demonstrates 
 ## Project Structure
 
 ```
-├── client/                    # Demo frontend application
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── home.tsx      # Demo page that loads and mounts the plugin
-│   │   │   └── not-found.tsx # 404 page
-│   │   ├── App.tsx           # App router
-│   │   ├── index.css         # Simple CSS (no Tailwind)
-│   │   └── main.tsx          # Entry point
-│   └── index.html            # HTML template
+├── src/
+│   ├── plugin/                # The actual plugin code (deployable)
+│   │   ├── index.ts           # Entry point with mount/unmount functions
+│   │   ├── Page.tsx           # Main plugin component
+│   │   ├── build.sh           # Build script for production bundle
+│   │   ├── package.json       # Plugin dependencies
+│   │   └── README.md          # Plugin documentation
+│   │
+│   └── demo/                  # Demo application (for local testing)
+│       ├── pages/
+│       │   ├── home.tsx       # Demo page that loads and mounts the plugin
+│       │   └── not-found.tsx  # 404 page
+│       ├── App.tsx            # App router
+│       ├── main.tsx           # Entry point
+│       ├── index.css          # Basic styles
+│       └── index.html         # HTML template
 │
-├── plugin/                    # The actual plugin code
-│   ├── src/
-│   │   ├── index.ts          # Entry point with mount/unmount functions
-│   │   └── Page.tsx          # Main plugin component
-│   ├── package.json          # Plugin dependencies
-│   ├── build.sh              # Build script
-│   ├── index.js              # Built bundle (IIFE format)
-│   └── README.md             # Plugin documentation
-│
-├── package.json              # Root package configuration
-├── vite.config.ts            # Vite configuration
-└── tsconfig.json             # TypeScript configuration
+├── package.json               # Root package configuration
+├── vite.config.ts             # Vite configuration
+└── tsconfig.json              # TypeScript configuration
 ```
 
 ## What This Demo Demonstrates
@@ -45,7 +43,7 @@ A template project for building digital.auto plugins. This project demonstrates 
 ## Building the Plugin
 
 ```bash
-cd plugin
+cd src/plugin
 bash build.sh
 ```
 
@@ -88,21 +86,6 @@ type PageProps = {
 
 This template uses **inline CSS styles** instead of Tailwind or CSS frameworks. This makes the plugin self-contained and easier to deploy.
 
-The styles object pattern is used:
-```typescript
-const styles = {
-  container: {
-    minHeight: '100vh',
-    padding: '24px',
-    // ...
-  },
-  // ...
-};
-
-// Usage
-<div style={styles.container}>...</div>
-```
-
 ## Key Points
 
 1. **React from Global**: The plugin uses `globalThis.React` instead of importing React, because the host application provides React
@@ -122,8 +105,8 @@ The demo page shows how the plugin will look when integrated into digital.auto.
 
 ## Deployment
 
-1. Build the plugin: `cd plugin && bash build.sh`
-2. Host the `plugin/index.js` file on a CDN or server
+1. Build the plugin: `cd src/plugin && bash build.sh`
+2. Host the `src/plugin/index.js` file on a CDN or server
 3. Register the plugin URL in digital.auto
 
 ## User Preferences

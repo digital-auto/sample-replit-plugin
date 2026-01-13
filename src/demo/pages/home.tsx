@@ -106,7 +106,7 @@ export default function Home() {
   useEffect(() => {
     const loadPlugin = async () => {
       try {
-        const pluginModule = await import("../../../plugin/src/index");
+        const pluginModule = await import("../../plugin/index");
         
         if (containerRef.current && pluginModule.mount) {
           pluginModule.mount(containerRef.current, {
@@ -127,7 +127,7 @@ export default function Home() {
     return () => {
       const cleanup = async () => {
         try {
-          const pluginModule = await import("../../../plugin/src/index");
+          const pluginModule = await import("../../plugin/index");
           if (containerRef.current && pluginModule.unmount) {
             pluginModule.unmount(containerRef.current);
           }
