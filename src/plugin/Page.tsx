@@ -26,10 +26,11 @@ const styles = {
   container: {
     minHeight: '100vh',
     width: '100%',
-    backgroundColor: '#f5f7fa',
+    backgroundColor: 'var(--muted, #f5f7fa)',
     padding: '24px',
     fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     boxSizing: 'border-box' as const,
+    color: 'var(--foreground, #1f2937)',
   },
   wrapper: {
     maxWidth: '900px',
@@ -41,28 +42,28 @@ const styles = {
   title: {
     fontSize: '28px',
     fontWeight: '700',
-    color: '#1a1a2e',
+    color: 'var(--primary, #1a1a2e)',
     margin: '0 0 8px 0',
   },
   subtitle: {
     fontSize: '14px',
-    color: '#6b7280',
+    color: 'var(--muted-foreground, #6b7280)',
     margin: 0,
   },
   card: {
-    backgroundColor: '#ffffff',
-    borderRadius: '8px',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'var(--background, #ffffff)',
+    borderRadius: 'var(--radius, 8px)',
+    border: '1px solid var(--border, #e5e7eb)',
     padding: '20px',
     marginBottom: '20px',
   },
   cardTitle: {
     fontSize: '16px',
     fontWeight: '600',
-    color: '#374151',
+    color: 'var(--foreground, #374151)',
     margin: '0 0 16px 0',
     paddingBottom: '12px',
-    borderBottom: '1px solid #e5e7eb',
+    borderBottom: '1px solid var(--border, #e5e7eb)',
   },
   fieldGroup: {
     marginBottom: '16px',
@@ -71,21 +72,21 @@ const styles = {
     display: 'block',
     fontSize: '12px',
     fontWeight: '600',
-    color: '#6b7280',
+    color: 'var(--muted-foreground, #6b7280)',
     marginBottom: '4px',
     textTransform: 'uppercase' as const,
     letterSpacing: '0.5px',
   },
   value: {
     fontSize: '14px',
-    color: '#1f2937',
+    color: 'var(--foreground, #1f2937)',
     margin: 0,
   },
   codeBlock: {
-    backgroundColor: '#1e1e2e',
-    color: '#cdd6f4',
+    backgroundColor: 'var(--primary, #1e1e2e)',
+    color: 'var(--primary-foreground, #cdd6f4)',
     padding: '16px',
-    borderRadius: '6px',
+    borderRadius: 'var(--radius, 6px)',
     fontSize: '13px',
     fontFamily: '"Fira Code", "Monaco", "Consolas", monospace',
     overflow: 'auto',
@@ -94,51 +95,53 @@ const styles = {
     wordBreak: 'break-word' as const,
   },
   customerJourneyBlock: {
-    backgroundColor: '#f9fafb',
+    backgroundColor: 'var(--muted, #f9fafb)',
     padding: '16px',
-    borderRadius: '6px',
+    borderRadius: 'var(--radius, 6px)',
     fontSize: '14px',
     lineHeight: '1.6',
-    color: '#374151',
+    color: 'var(--foreground, #374151)',
     whiteSpace: 'pre-wrap' as const,
   },
   input: {
     width: '100%',
     padding: '10px 12px',
     fontSize: '14px',
-    border: '1px solid #d1d5db',
-    borderRadius: '6px',
+    border: '1px solid var(--input, #d1d5db)',
+    borderRadius: 'var(--radius, 6px)',
     boxSizing: 'border-box' as const,
     outline: 'none',
+    backgroundColor: 'var(--background, #ffffff)',
+    color: 'var(--foreground, #1f2937)',
   },
   button: {
     padding: '10px 20px',
     fontSize: '14px',
     fontWeight: '500',
-    color: '#ffffff',
-    backgroundColor: '#3b82f6',
+    color: 'var(--primary-foreground, #ffffff)',
+    backgroundColor: 'var(--primary, #3b82f6)',
     border: 'none',
-    borderRadius: '6px',
+    borderRadius: 'var(--radius, 6px)',
     cursor: 'pointer',
     marginTop: '12px',
   },
   buttonDisabled: {
-    backgroundColor: '#9ca3af',
+    backgroundColor: 'var(--muted-foreground, #9ca3af)',
     cursor: 'not-allowed',
   },
   successMessage: {
-    backgroundColor: '#d1fae5',
-    color: '#065f46',
+    backgroundColor: 'var(--secondary, #d1fae5)',
+    color: 'var(--secondary-foreground, #065f46)',
     padding: '12px 16px',
-    borderRadius: '6px',
+    borderRadius: 'var(--radius, 6px)',
     fontSize: '14px',
     marginTop: '12px',
   },
   errorMessage: {
-    backgroundColor: '#fee2e2',
-    color: '#991b1b',
+    backgroundColor: 'var(--destructive, #fee2e2)',
+    color: 'var(--primary-foreground, #991b1b)',
     padding: '12px 16px',
-    borderRadius: '6px',
+    borderRadius: 'var(--radius, 6px)',
     fontSize: '14px',
     marginTop: '12px',
   },
@@ -153,8 +156,8 @@ const styles = {
     fontSize: '12px',
     fontWeight: '500',
     borderRadius: '20px',
-    backgroundColor: '#e0e7ff',
-    color: '#3730a3',
+    backgroundColor: 'var(--muted, #e0e7ff)',
+    color: 'var(--primary, #3730a3)',
   },
   apiSection: {
     display: 'flex',
@@ -217,7 +220,7 @@ export default function Page({ data, config, api }: PageProps) {
 
         <div style={styles.card}>
           <h2 style={styles.cardTitle}>Reading Prototype & Model Data</h2>
-          <p style={{ ...styles.value, marginBottom: '16px', color: '#6b7280' }}>
+          <p style={{ ...styles.value, marginBottom: '16px', color: 'var(--muted-foreground, #6b7280)' }}>
             This section demonstrates how plugins can read data from the current prototype and model.
           </p>
           <h3 style={{ ...styles.cardTitle, fontSize: '14px', marginTop: '16px', paddingBottom: '8px', borderBottom: 'none', marginBottom: '8px' }}>Prototype Information</h3>
@@ -260,7 +263,7 @@ export default function Page({ data, config, api }: PageProps) {
 
         <div style={styles.card}>
           <h2 style={styles.cardTitle}>Writing Data Back</h2>
-          <p style={{ ...styles.value, marginBottom: '16px', color: '#6b7280' }}>
+          <p style={{ ...styles.value, marginBottom: '16px', color: 'var(--muted-foreground, #6b7280)' }}>
             This section demonstrates how plugins can update data back to the platform using the Plugin API.
           </p>
           <div style={styles.apiSection}>
@@ -288,7 +291,7 @@ export default function Page({ data, config, api }: PageProps) {
             </button>
           </div>
           {!api?.updatePrototype && (
-            <p style={{ fontSize: '12px', color: '#9ca3af', marginTop: '8px' }}>
+            <p style={{ fontSize: '12px', color: 'var(--muted-foreground, #9ca3af)', marginTop: '8px' }}>
               Note: updatePrototype API is not available in this context
             </p>
           )}
@@ -304,7 +307,7 @@ export default function Page({ data, config, api }: PageProps) {
 
         <div style={styles.card}>
           <h2 style={styles.cardTitle}>Available APIs</h2>
-          <p style={{ ...styles.value, marginBottom: '12px', color: '#6b7280' }}>
+          <p style={{ ...styles.value, marginBottom: '12px', color: 'var(--muted-foreground, #6b7280)' }}>
             The following API methods are available to this plugin:
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -316,7 +319,7 @@ export default function Page({ data, config, api }: PageProps) {
             {api?.getRuntimeApiValues && <span style={styles.badge}>getRuntimeApiValues</span>}
             {api?.setRuntimeApiValues && <span style={styles.badge}>setRuntimeApiValues</span>}
             {api?.createWishlistApi && <span style={styles.badge}>createWishlistApi</span>}
-            {!api && <span style={{ ...styles.badge, backgroundColor: '#fef3c7', color: '#92400e' }}>No API provided</span>}
+            {!api && <span style={{ ...styles.badge, backgroundColor: 'var(--destructive, #fef3c7)', color: 'var(--primary-foreground, #92400e)' }}>No API provided</span>}
           </div>
         </div>
       </div>
