@@ -192,15 +192,60 @@ This ensures your plugin uses the same React instance as digital.auto.
 ## Deployment
 
 1. Build your plugin: `npm run build:plugin`
-2. Host `dist/index.js` on any static file server or CDN
-3. Register the URL in your digital.auto prototype
+2. Host the `dist/` folder on any static file server
+3. Register the plugin URL in your digital.auto prototype
 
-### Deploying on Replit
+### Option 1: Deploy on Replit
 
 Your plugin is automatically available at:
 ```
 https://your-repl.replit.dev/index.js
 ```
+
+### Option 2: Deploy to Nginx / Apache / Other Web Servers
+
+Copy the `dist/` directory to your web server:
+
+```bash
+# Build the plugin
+npm run build:plugin
+
+# Copy to your web server
+cp -r dist/* /var/www/html/my-plugin/
+# or
+scp -r dist/* user@server:/var/www/html/my-plugin/
+```
+
+**Nginx example config:**
+```nginx
+server {
+    listen 80;
+    server_name plugins.example.com;
+    
+    location /my-plugin/ {
+        alias /var/www/html/my-plugin/;
+        add_header Access-Control-Allow-Origin *;
+    }
+}
+```
+
+**Apache example config:**
+```apache
+<Directory /var/www/html/my-plugin>
+    Header set Access-Control-Allow-Origin "*"
+</Directory>
+```
+
+Your plugin URL would be: `https://plugins.example.com/my-plugin/index.js`
+
+### Option 3: Deploy to CDN
+
+Upload `dist/index.js` to any CDN or static hosting service:
+- GitHub Pages
+- Netlify
+- Vercel
+- AWS S3 + CloudFront
+- Any static file host
 
 ## Example: Custom Plugin
 
