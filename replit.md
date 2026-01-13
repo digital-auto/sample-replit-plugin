@@ -23,10 +23,19 @@ A template project for building digital.auto plugins. This project demonstrates 
 │       ├── index.css          # Basic styles
 │       └── index.html         # HTML template
 │
+├── dist/                      # Built plugin output
+│   └── index.js               # The plugin bundle to deploy
+│
 ├── package.json               # Root package configuration
 ├── vite.config.ts             # Vite configuration
 └── tsconfig.json              # TypeScript configuration
 ```
+
+## Plugin Output
+
+The plugin is automatically built to `dist/index.js` whenever you change code in `src/plugin/`.
+
+**Access URL:** `/index.js` (served from the dist folder)
 
 ## What This Demo Demonstrates
 
@@ -40,18 +49,33 @@ A template project for building digital.auto plugins. This project demonstrates 
 
 3. **Available APIs**: Shows which Plugin API methods are available in the current context
 
-## Building the Plugin
+## Development
 
+Run the development server:
+```bash
+npm run dev
+```
+
+This will:
+- Start the Vite dev server for the demo app
+- Watch for changes in `src/plugin/` and automatically rebuild `dist/index.js`
+
+## Building the Plugin Manually
+
+```bash
+npm run build:plugin
+```
+
+Or:
 ```bash
 cd src/plugin
 bash build.sh
 ```
 
 This will:
-- Install npm dependencies
 - Bundle with esbuild as IIFE format
 - External: react, react-dom/client, react/jsx-runtime (provided by host)
-- Output: `index.js` and `index.js.map`
+- Output: `dist/index.js` and `dist/index.js.map`
 
 ## Plugin API
 
@@ -94,19 +118,10 @@ This template uses **inline CSS styles** instead of Tailwind or CSS frameworks. 
 4. **Error Handling**: Always use optional chaining (`?.`) for data access
 5. **API Availability**: Check if API methods exist before calling them
 
-## Development
-
-Run the development server:
-```bash
-npm run dev
-```
-
-The demo page shows how the plugin will look when integrated into digital.auto.
-
 ## Deployment
 
-1. Build the plugin: `cd src/plugin && bash build.sh`
-2. Host the `src/plugin/index.js` file on a CDN or server
+1. The plugin is automatically built to `dist/index.js`
+2. Host the `dist/index.js` file on a CDN or server
 3. Register the plugin URL in digital.auto
 
 ## User Preferences

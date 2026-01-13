@@ -4,8 +4,10 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "concurrently \"npm run build:plugin:watch\" \"vite\"",
+    "build:plugin": "bash src/plugin/build.sh",
+    "build:plugin:watch": "npm run build:plugin && chokidar \"src/plugin/**/*.ts\" \"src/plugin/**/*.tsx\" -c \"npm run build:plugin\"",
+    "build": "npm run build:plugin && vite build",
     "check": "tsc"
   },
   "dependencies": {
@@ -21,6 +23,9 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.7.0",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.25.0",
     "typescript": "5.6.3",
     "vite": "^5.4.20"
   }

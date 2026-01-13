@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
-OUT_DIR="$ROOT_DIR"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+OUT_DIR="$ROOT_DIR/dist"
 mkdir -p "$OUT_DIR"
 
-if [ -f "${ROOT_DIR}/package.json" ]; then
+if [ -f "${SCRIPT_DIR}/package.json" ]; then
   echo "Installing plugin dependencies..."
-  cd "${ROOT_DIR}"
+  cd "${SCRIPT_DIR}"
   npm install --silent
 fi
 
-npx esbuild "${ROOT_DIR}/index.ts" \
+npx esbuild "${SCRIPT_DIR}/index.ts" \
   --bundle \
   --format=iife \
   --platform=browser \

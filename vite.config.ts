@@ -27,8 +27,9 @@ export default defineConfig({
     },
   },
   root: path.resolve(import.meta.dirname, "src", "demo"),
+  publicDir: path.resolve(import.meta.dirname, "dist"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist"),
+    outDir: path.resolve(import.meta.dirname, "dist", "demo"),
     emptyOutDir: true,
   },
   server: {
