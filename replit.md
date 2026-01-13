@@ -1,28 +1,47 @@
-# Remote React Plugin System
+# digital.auto Plugin Template
 
 ## Overview
-A simple plugin system for building TypeScript React components that can be hot-loaded into any host application.
+A template project for building digital.auto plugins. This project demonstrates how to create a React-based plugin that can display prototype data and interact with the Plugin API.
 
-## Structure
+## Project Structure
 
 ```
-plugin/
-├── src/
-│   ├── index.ts              # Entry point with mount/unmount functions
-│   └── components/
-│       └── Page.tsx          # Main plugin component
-├── package.json              # Plugin dependencies (bundled)
-├── build.sh                  # esbuild build script
-├── index.js                  # Built bundle (IIFE format)
-└── index.js.map             # Source map
+├── client/                    # Demo frontend application
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── home.tsx      # Demo page showing the plugin UI
+│   │   │   └── not-found.tsx # 404 page
+│   │   ├── App.tsx           # App router
+│   │   ├── index.css         # Simple CSS (no Tailwind)
+│   │   └── main.tsx          # Entry point
+│   └── index.html            # HTML template
+│
+├── plugin/                    # The actual plugin code
+│   ├── src/
+│   │   ├── index.ts          # Entry point with mount/unmount functions
+│   │   └── Page.tsx          # Main plugin component
+│   ├── package.json          # Plugin dependencies
+│   ├── build.sh              # Build script
+│   ├── index.js              # Built bundle (IIFE format)
+│   └── README.md             # Plugin documentation
+│
+├── server/                    # Express server
+└── shared/                    # Shared types
 ```
 
-## How It Works
+## What This Template Demonstrates
 
-1. **Build**: Run `bash plugin/build.sh` to bundle the plugin
-2. **Serve**: Plugin is served at `/plugin/index.js` with CORS enabled
-3. **Load**: Host page loads React first, then loads the plugin
-4. **Mount**: Call `window.DAPlugins['page-plugin'].mount(element, props)`
+1. **Reading Prototype Data**: Displays prototype information including:
+   - Prototype ID and Name
+   - State and Language
+   - Customer Journey content
+   - Prototype Code
+
+2. **Model Information**: Shows model details linked to the prototype
+
+3. **API Integration**: Demonstrates the `updatePrototype` API to save data back
+
+4. **Available APIs**: Shows which Plugin API methods are available
 
 ## Building the Plugin
 
@@ -32,78 +51,84 @@ bash build.sh
 ```
 
 This will:
-- Install npm dependencies (like dayjs)
+- Install npm dependencies
 - Bundle with esbuild as IIFE format
 - External: react, react-dom/client, react/jsx-runtime (provided by host)
 - Output: `index.js` and `index.js.map`
 
-## Loading in Host
-
-```html
-<!-- 1. Load React from CDN -->
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
-<!-- 2. Polyfill require() for plugin -->
-<script>
-  window.require = function(name) {
-    if (name === 'react') return window.React;
-    if (name === 'react-dom/client') return window.ReactDOM;
-    if (name === 'react/jsx-runtime') {
-      return {
-        jsx: window.React.createElement,
-        jsxs: window.React.createElement,
-        Fragment: window.React.Fragment
-      };
-    }
-    throw new Error('Module not found: ' + name);
-  };
-</script>
-
-<!-- 3. Load plugin -->
-<script src="http://localhost:5000/plugin/index.js"></script>
-
-<!-- 4. Mount it -->
-<div id="container"></div>
-<script>
-  const plugin = window.DAPlugins['page-plugin'];
-  plugin.mount(document.getElementById('container'), {
-    data: { metrics: [...] },
-    config: { title: 'Dashboard' }
-  });
-</script>
-```
-
 ## Plugin API
 
-The plugin exports:
+The plugin receives these props:
 
-- `components.Page` - Main React component
-- `mount(element, props)` - Mount to DOM element
-- `unmount(element)` - Cleanup and unmount
+```typescript
+type PageProps = {
+  data?: {
+    model?: Model;
+    prototype?: Prototype;
+  };
+  config?: {
+    plugin_id?: string;
+  };
+  api?: PluginAPI;
+};
+```
 
-Props:
-- `data?: any` - Dynamic data containing the Python code
-  - `data.prototype.code` - The Python source code to display and analyze
-- `config?: any` - Configuration
-  - `config.backendUrl` - URL of the backend server (defaults to `'https://3f922878-444d-4a75-bebf-5d14f5394eeb-00-16daf27c5lw4s.picard.replit.dev'`)
+### Available API Methods
 
-## Demo
+- `updateModel(updates)` - Update model data
+- `updatePrototype(updates)` - Update prototype data
+- `getComputedAPIs()` - Get vehicle APIs
+- `getApiDetail(api_name)` - Get specific API details
+- `listVSSVersions()` - List VSS versions
+- `getRuntimeApiValues()` - Get current runtime values
+- `setRuntimeApiValues(values)` - Set runtime values
+- `createWishlistApi(data)` - Create custom signal
+- And more...
 
-Visit `/demo.html` to see the plugin in action.
+## Styling
 
-## Development
+This template uses **inline CSS styles** instead of Tailwind or CSS frameworks. This makes the plugin self-contained and easier to deploy.
 
-The plugin uses:
-- **esbuild** - Fast bundler
-- **IIFE format** - Immediately invoked, works everywhere
-- **External React** - Host provides React/ReactDOM
-- **npm packages** - Bundled automatically (like dayjs)
+The styles object pattern is used:
+```typescript
+const styles = {
+  container: {
+    minHeight: '100vh',
+    padding: '24px',
+    // ...
+  },
+  // ...
+};
+
+// Usage
+<div style={styles.container}>...</div>
+```
 
 ## Key Points
 
-- React/ReactDOM must be loaded before the plugin
-- Plugin registers itself on `window.DAPlugins`
-- All npm dependencies are bundled except React
-- Simple mount/unmount API
-- Works with any host application
+1. **React from Global**: The plugin uses `globalThis.React` instead of importing React, because the host application provides React
+2. **No External Dependencies**: Plugin should minimize external dependencies for easier deployment
+3. **Self-contained Styling**: Use inline styles for portability
+4. **Error Handling**: Always use optional chaining (`?.`) for data access
+5. **API Availability**: Check if API methods exist before calling them
+
+## Development
+
+Run the development server:
+```bash
+npm run dev
+```
+
+The demo page shows how the plugin will look when integrated into digital.auto.
+
+## Deployment
+
+1. Build the plugin: `cd plugin && bash build.sh`
+2. Host the `plugin/index.js` file on a CDN or server
+3. Register the plugin URL in digital.auto
+
+## User Preferences
+
+- No Tailwind CSS - use inline styles
+- Clean, minimal project structure
+- Self-documenting code with inline comments where needed

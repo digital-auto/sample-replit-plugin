@@ -1,21 +1,44 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
+const styles = {
+  container: {
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '24px',
+    backgroundColor: '#f5f7fa',
+    fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  },
+  title: {
+    fontSize: '72px',
+    fontWeight: '700',
+    color: '#1a1a2e',
+    margin: '0 0 8px 0',
+  },
+  subtitle: {
+    fontSize: '24px',
+    color: '#6b7280',
+    margin: '0 0 24px 0',
+  },
+  link: {
+    padding: '10px 20px',
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#ffffff',
+    backgroundColor: '#3b82f6',
+    borderRadius: '6px',
+    textDecoration: 'none',
+  },
+};
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
-          </div>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
-          </p>
-        </CardContent>
-      </Card>
+    <div style={styles.container} data-testid="not-found-page">
+      <h1 style={styles.title}>404</h1>
+      <p style={styles.subtitle}>Page not found</p>
+      <a href="/" style={styles.link} data-testid="link-go-home">
+        Go Home
+      </a>
     </div>
   );
 }

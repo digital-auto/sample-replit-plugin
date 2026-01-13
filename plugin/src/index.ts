@@ -16,7 +16,6 @@ export function unmount(el: HTMLElement) {
   delete (el as any).__aw_root;
 }
 
-// Optional global registration
 if (typeof window !== "undefined") {
   (window as any).DAPlugins = (window as any).DAPlugins || {};
   (window as any).DAPlugins["page-plugin"] = { components, mount, unmount };
