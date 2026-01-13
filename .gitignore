@@ -1,8 +1,7 @@
 # Dependencies
 node_modules/
 
-# Build output
-dist/
+# Build output is kept in git for easy testing
 
 # OS files
 .DS_Store
